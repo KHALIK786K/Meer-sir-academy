@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167873271-1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ScholarX is an exclusive 6-month program aimed at providing
+            mentoring support to a selected pool of high Potential undergraduate students
+            based in Sri Lanka ideally by a Sri Lankan expat currently engaged with one of
+            the world’s top universities or Fortune 500 companies. It’s our free premium
+            mentoring platform by Sri Lankans for Sri Lankans working towards creating a culture
+            of knowledge and expertise sharing without the limitation of geographical borders.">
+    <meta name="author" content="Sustainable Education Foundation">
+    <meta property="og:image" content="../../assets/img/brand/scholarx.png">
+    <title>ScholarX Archive | Sustainable Education Foundation</title>
+    <!-- Favicon -->
+    <link href="/assets/img/brand/favicon.png" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
+    <!-- Argon CSS -->
+    <link type="text/css" href="/assets/css/argon.css?v=1.0.1" rel="stylesheet">
+    <!-- global CSS -->
+    <link type="text/css" href="/assets/css/global-custom.css" rel="stylesheet">
+
+    <link type="text/css" href="./styles.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3e2941913d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<header class="header-global">
+    <!--nav bar goes here-->
+    <div id="navbar"></div>
+</header>
+
+<section class="section pb-0 bg-gradient-white mt-5">
+    <div class="container">
+        <div class="row row-grid align-items-center justify-content-center">
+            <div class="description col-md-6">
+                <div class="d-flex px-3">
+                    <div class="pl-4">
+                        <img src="/assets/img/brand/scholarx.png" class="img-fluid align-self-center mb-4 w-50">
+                        <p>ScholarX intends to deliver free premium mentoring assistance for the elite undergraduate
+                            students based in Sri Lanka, through the means of a Sri Lankan expatriate presently involved
+                            with one of the world’s most renowned universities or Fortune 500 companies. This program
+                            strives to create a sustainable education structure within Sri Lanka by drawing knowledge
+                            and expertise from all across the globe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image col-md-6 px-5">
+                <img src="/scholarx/archive/images/sx-hero-image.png" class="img-fluid align-self-center w-100">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Archive Filter -->
+<div class="container filter-container">
+    <div class="row">
+      <div class="filters mt-5 w-100 col-3" >
+        <h6>FILTER</h6>
+        <hr>
+        <!--mentor mentee selection-->
+        <div class="mt-2 mb-5" id="selection">
+            <button class="btn btn-sm custom-checkbox mb-3 py-2 btn-checkbox">
+                <input class="custom-control-input custom-check-box" id="mentorsCheckbox" onclick="mentorsCheckout()" type="checkbox">
+                <label class="custom-control-label" for="mentorsCheckbox">mentors</label>
+            </button>
+            <br>
+            <button class="btn btn-sm custom-checkbox mb-3 py-2 btn-checkbox">
+                <input class="custom-control-input custom-check-box" id="menteesCheckbox" onclick="menteesCheckout()" type="checkbox">
+                <label class="custom-control-label" for="menteesCheckbox">mentees</label>
+            </button>
+        </div>
+        <h6>COHORT</h6>
+        <hr>
+        <div class="mt-2 mb-5">
+            <div id="cohort-filters"></div>
+        </div>
+        <div id="industry-filter">
+            <h6>INDUSTRY</h6>
+            <hr>
+            <div class="mt-2 mb-5">
+                <button class="btn btn-sm active mb-3" onclick="filterByIndustry('all')"> Show all</button>
+                <div id="dynamic-industry-filters"></div>
+            </div> 
+        </div>
+        <div id="university-filter" class="university-filter">
+            <h6>UNIVERSITY</h6>
+            <hr>
+            <div class="mt-2 mb-5">
+                <button class="btn btn-sm active mb-3" onclick="filterByUniversity('all')"> Show all</button>
+                <div class="university-filter-scroller">
+                    <div id="dynamic-university-filters"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="table w-100 col-9">
+            <div class="search-filter">
+                <input id="search" type="text" class="form-control rounded search-bar" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+            <!--no results message-->
+            <div id="noResultsMessage" class="no-results-page" style="display: none;">
+                <span class="no-results-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </span>
+                <p class="no-results-text">No Results Found</p>
+            </div>
+            <!--loading animation-->
+            <div id="loadingAnimation" class="loadingAnimationPage">
+                <div class="loader"></div>
+                <p class="loading-text">Loading.....</p>
+            </div>
+            <!--mentor details-->        
+            <div id="showMentors" class="mentors-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mentorProfiles">                    
+                    </tbody>
+                </table>
+            </div>
+            <!--mentees details-->
+            <div id="showMentees" class="mentees-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>University</th>
+                            <th>Mentor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="menteeProfiles">
+                    </tbody>
+                </table>
+            </div>         
+      </div>
+    </div>
+</div>
+<!--profile modal template-->
+<div class="modal fade profile-modal" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="profile-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered"
+         role="document">
+        <!-- Content for the modal goes here -->
+        <div class="modal-content">
+            <div class="pt-3 pr-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="profile-modal-content" class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<!--contact us-->
+<section class="section section-secondary">
+    <div class="container px-md-5 pb-3">
+      <div class="contact-us row align-items-center justify-content-md-between">
+        <div class="col-md-5 d-flex justify-content-center">
+          <img class="img-fluid align-self-start w-80"
+               src="./images/contact-section.png"
+               alt="" width="250px">
+        </div>
+        <div class="col-md-7 justify-content-center">
+          <div>
+            <div class="row justify-content-center justify-content-md-end">
+              <div class="col-12">
+                <h3 class="mb-2 mt-4 text-onelive">Help Us Improve</h3>
+                <p>
+                    If you have noticed any incorrect data on ScholarX archive, please contact us. Your feedback helps us improve our content and correct any errors that may have been overlooked. Thank you.
+                    <a href="mailto:sustainableedufoundation@gmail.com">sustainableedufoundation@gmail.com</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!--footer-->
+<footer class="footer">
+    <div id="footer"></div>
+    <!--footer goes here -->
+</footer>
+<!-- to use the dynamic footer, use this instead of above tag => *<div id="footer"></div>* -->
+</body>
+
+<!-- template mentors-->
+<script type="text/html" id="templateMentors">
+    {{#mentorProfiles}}
+        <tr onclick="openMentorProfile('{{index}}')">
+            <th scope="row">
+                <img src="https://res.cloudinary.com/dsxobn1ln/image/upload/c_scale,h_48,w_48/{{image}}" class="avatar">
+            </th>
+            <td>{{name}}</td>
+            <td>{{title}}</td>
+        </tr>
+    {{/mentorProfiles}}     
+</script>
+
+<!-- template mentees -->
+<script type="text/html" id="templateMentees">
+    {{#menteeProfiles}}
+        <tr onclick="openMenteeProfile('{{index}}')">
+            <th scope="row">
+                <img src="https://res.cloudinary.com/dsxobn1ln/image/upload/c_scale,h_48,w_48/{{image}}" class="avatar">
+            </th>            
+            <td>{{name}}</td>
+            <td>{{university}}</td>
+            <td>{{mentor}}</td>
+        </tr>
+    {{/menteeProfiles}}     
+</script>
+
+<!-- template INDUSTRY filters-->
+<script id="industry-filter-template" type="x-tmpl-mustache">
+    {{#checkboxes}}
+    <button class="btn btn-sm custom-checkbox mb-3 btn-checkbox">
+        <input class="custom-control-input" id={{htmlId}} type="checkbox" onclick="filterByIndustry('industry')">
+        <label class="custom-control-label" for={{htmlId}}>{{id}}</label>
+    </button>
+    {{/checkboxes}}
+</script>
+
+<!-- template COHORT filters-->
+<script id="cohort" type="x-tmpl-mustache">
+    {{#checkboxes}}
+    <button class="btn btn-sm custom-checkbox mb-3 btn-checkbox">
+        <input class="custom-control-input" id={{id}} type="checkbox" onclick="filterByYear()">
+        <label class="custom-control-label" for={{id}}>{{id}}</label>
+    </button>
+    {{/checkboxes}}
+</script>
+
+<!--template UNIVERSITY dropdowns-->
+<script id="university-template" type="x-tmpl-mustache">
+    {{#checkboxes}}
+    <button class="btn btn-sm custom-checkbox mb-3 btn-checkbox">
+        <input class="custom-control-input" id={{htmlId}} type="checkbox" onclick="filterByUniversity('university')">
+        <label class="university-label custom-control-label" style="font-size: 13px; text-transform: capitalize;" for={{htmlId}}>{{id}}</label>
+    </button>
+    {{/checkboxes}}
+</script>
+
+<!--mentor profile model-->
+<script type="text/html" id="template-profile-mentor-content">
+    <div class="text-center">
+      <img 
+        src="https://res.cloudinary.com/dsxobn1ln/image/upload/{{image}}"
+        alt="Rounded image"
+        style="width: 300px;"
+        class="img-fluid rounded-circle profile-image border img-center shadow mb-4"
+      />
+      <h4>{{name}}</h4>
+      <span>{{title}}</span>
+      {{#linkedin}}
+      <div class="linkedin mt-3">
+        <a href="{{.}}"
+           target="_blank"
+           class="btn btn-linkedin btn-icon-only rounded-circle btn-icon-rounded">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+      {{/linkedin}}
+    </div>
+    <hr />
+    <p class="text-justify">{{{bio}}}</p>
+    <hr />
+    <h5>Areas of expertise :</h5>
+    <ul>
+      {{#areasOfExpertise}}
+      <li>{{.}}</li>
+      {{/areasOfExpertise}}
+    </ul>
+    <hr />
+    <h5>Mentees :</h5>
+    <ul>
+        {{#mentees}}
+        <li>{{.}}</li>
+        {{/mentees}}
+      </ul>
+</script>
+
+<!--mentee profile model-->
+<script type="text/html" id="template-profile-mentee-content">
+    <div class="text-center">
+      <img
+        src="https://res.cloudinary.com/dsxobn1ln/image/upload/{{image}}"
+        alt="Rounded image"
+        style="width: 300px;"
+        class="img-fluid rounded-circle profile-image border img-center shadow mb-4"
+      />
+      <h4>{{name}}</h4>
+      {{#linkedin}}
+      <div class="linkedin mt-3">
+        <a href="{{.}}"
+           target="_blank"
+           class="btn btn-linkedin btn-icon-only rounded-circle btn-icon-rounded">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+      {{/linkedin}}
+    </div>
+    <hr />
+    <h5>Mentor :</h5>
+    <h6>{{mentor}}</h6>
+    <hr />
+    <h5>University :</h5>
+    <h6>{{university}}</h6>
+</script>
+
+<!-- Core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.10.4/headroom.min.js"></script>
+<!-- Optional JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js"></script>
+<!--Mustache.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<!-- Argon JS -->
+<script src="/assets/js/argon.js?v=1.0.1"></script>
+<!-- Script for static navbar and footer -->
+<script src="/assets/js/navigation.js"></script>
+<!-- External JS file for the JS functions-->
+<script src="functions.js"></script>  
+</html>
